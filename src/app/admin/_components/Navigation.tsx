@@ -1,8 +1,7 @@
 import { Logo } from "./Logo";
 import { LayoutDashboard } from "lucide-react";
-import { Settings } from 'lucide-react';
-import { Truck } from 'lucide-react';
-
+import { Settings } from "lucide-react";
+import { Truck } from "lucide-react";
 
 export const Navigation = () => {
   return (
@@ -16,17 +15,17 @@ export const Navigation = () => {
           <h2 className="text-xs text-muted-foreground  ">Swift delivery</h2>
         </div>
       </div>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col w-[165px] gap-6 ">
         <button className="flex px-6 py-2 focus:bg-primary focus:text-primary-foreground items-center gap-[10px] rounded-full">
-          <LayoutDashboard  strokeWidth={1} />
+          <LayoutDashboard strokeWidth={1} />
           <h3 className="text-sm font-medium  ">Food menu</h3>
         </button>
         <button className="flex px-6 py-2 focus:bg-primary focus:text-primary-foreground items-center gap-[10px] rounded-full">
-          <Truck  strokeWidth={1} />
+          <Truck strokeWidth={1} />
           <h3 className="text-sm font-medium  ">Orders</h3>
         </button>
         <button className="flex px-6 py-2 focus:bg-primary focus:text-primary-foreground items-center gap-[10px] rounded-full">
-          <Settings  strokeWidth={1} />
+          <Settings strokeWidth={1} />
           <h3 className="text-sm font-medium  ">Settings</h3>
         </button>
       </div>

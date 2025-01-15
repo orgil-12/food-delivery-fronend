@@ -6,7 +6,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-muted h-screen flex  gap-6">
+    <div className="bg-muted h-screen flex gap-6  ">
       <Navigation />
       {children}
     </div>
