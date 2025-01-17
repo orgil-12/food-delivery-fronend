@@ -1,0 +1,124 @@
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Plus, Image } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
+import { CategoryType } from "./Dishes";
+
+export const AddDish = ({ categoryName, _id }: CategoryType) => {
+  const [food, setFood] = useState({
+    name: "",
+    price: 0,
+    ingredients: "",
+    image: "",
+    category: _id
+  });
+
+  const onChange = (e: any) => {
+    setFood({
+      ...food,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const addDish = () => {
+    fetch("http://localhost:8000/food/", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(food),
+    });
+  };
+
+  return (
+    <Dialog>
+      <DialogTitle className=" text-center ">
+        <DialogTrigger asChild>
+          <Button variant="destructive" className="rounded-full p-[10px]">
+            <Plus />
+          </Button>
+        </DialogTrigger>
+        <div className="text-center text-sm font-medium mt-6">
+          <h4>Add new Dish to </h4>
+          <h4>{categoryName}</h4>
+        </div>
+      </DialogTitle>
+      <DialogContent className="flex flex-col gap-6 p-6">
+        <DialogHeader className="pb-4 grid gap-4">
+          <DialogTitle>Add new dish to</DialogTitle>
+          <DialogTitle>{categoryName}</DialogTitle>
+        </DialogHeader>
+        <div className="flex gap-6">
+          <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="foodName">Food name</Label>
+            <Input
+              value={food.name}
+              id="foodName"
+              name="name"
+              type="text"
+              placeholder="Type food name..."
+              onChange={onChange}
+            />
+          </div>
+          <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="foodPrice">Food price</Label>
+            <Input
+              id="foodPrice"
+              name="price"
+              type="text"
+              placeholder="Enter price..."
+              onChange={onChange}
+            />
+          </div>
+        </div>
+        <div className="flex flex-col w-full  gap-1.5">
+          <label htmlFor="ingredients">Ingredients</label>
+          <textarea
+            id="ingredients"
+            name="ingredients"
+            rows={4}
+            cols={50}
+            className="border rounded-md py-2 px-4  text-sm font-normal "
+            placeholder="List ingredients..."
+            onChange={onChange}
+          ></textarea>
+        </div>
+        <div className="grid w-full items-center gap-1.5">
+          <Label
+            htmlFor="image"
+            className="h-[138px] border border-dashed rounded-md bg-blue-50 flex flex-col items-center justify-center p-4 gap-2"
+          >
+            <div className="rounded-full p-2 bg-background ">
+              <Image />
+            </div>
+            <h3 className="text-sm">Choose a file or drag & drop it here</h3>
+          </Label>
+          <Input
+            id="image"
+            name="image"
+            type="file"
+            placeholder="Enter price..."
+            className="hidden"
+            onChange={onChange}
+          />
+        </div>
+        <DialogFooter className="pt-6">
+          <DialogClose asChild>
+            <Button onClick={() => addDish()}>Add dish</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
