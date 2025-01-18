@@ -4,8 +4,9 @@ import { CategoryType } from "./Dishes";
 
 import { Card } from "@/components/ui/card";
 import { AddDish } from "./AddDish";
+import { CardComp } from "./Card";
 
-type FoodType = {
+export type FoodType = {
   _id: string;
   name: string;
   price: number;
@@ -34,11 +35,12 @@ export const FilteredFood = ({ _id, categoryName }: CategoryType) => {
         <Card className="border border-dashed border-red-500 px-2 py-4 w-[270.75px] h-[241px] flex flex-col items-center  justify-center ">
           <AddDish categoryName={categoryName} _id={_id} />
         </Card>
-        {foods?.map((food) => food.category ===_id && (
-          <Card className="border border-dashed px-2 py-4 w-[270.75px] h-[241px] flex flex-col items-center  justify-center" key={food._id}>
-            <div>{food.name}</div>
-          </Card>
-        ))}
+        {foods?.map(
+          (food) =>
+            food.category === _id && (
+              <CardComp food={food}/>
+            )
+        )}
       </div>
     </div>
   );
