@@ -20,7 +20,7 @@ export const Navigation = () => {
       </Link>
 
       <div className="flex flex-col w-[165px] gap-6 ">
-        <Link href={`/admin/menu/all-dishes`}>
+        <Link href={`/admin/menu`}>
           <button className="flex px-6 py-2 focus:bg-primary focus:text-primary-foreground items-center gap-[10px] rounded-full">
             <LayoutDashboard strokeWidth={1} />
             <h3 className="text-sm font-medium  ">Food menu</h3>
