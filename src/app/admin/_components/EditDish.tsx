@@ -1,3 +1,6 @@
+"use client";
+import { Button } from "@/components/ui/button";
+import { Pencil, X } from "lucide-react";
 import {
   Dialog,
   DialogClose,
@@ -7,41 +10,28 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Plus, Image } from "lucide-react";
+import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { FoodType } from "./FilteredFood";
 import { useState } from "react";
-import { CategoryType } from "./Dishes";
 
-interface AddDishProps {
-  categoryName: string,
-  _id: string
-}
+export const EditDish = ({ food, id }: { food: FoodType; id: string }) => {
+  const [editFood, setEditFood] = useState(food);
 
-export const AddDish = ({ categoryName,_id }: AddDishProps) => {
-  const [food, setFood] = useState({
-    name: "",
-    price: 0,
-    ingredients: "",
-    image: "",
-    category: _id,
-  });
-
-  const addDish = async () => {
-    await fetch("http://localhost:8000/food/", {
+  const editDish = async () => {
+    await fetch(`http://localhost:8000/food/${food._id}`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      method: "POST",
-      body: JSON.stringify(food),
+      method: "PUT",
+      body: JSON.stringify(editFood),
     });
   };
 
   const onChange = (e: any) => {
     console.log("--", e.target.name, e.target.value);
-    setFood({
+    setEditFood({
       ...food,
       [e.target.name]: e.target.value,
     });
@@ -64,7 +54,7 @@ export const AddDish = ({ categoryName,_id }: AddDishProps) => {
       );
 
       const dataJson = await response.json();
-      setFood((prev: any) => ({ ...prev, image: dataJson.secure_url }));
+      setEditFood((prev: any) => ({ ...prev, image: dataJson.secure_url }));
     }
   };
 
@@ -72,47 +62,43 @@ export const AddDish = ({ categoryName,_id }: AddDishProps) => {
     <Dialog>
       <DialogTitle className=" text-center ">
         <DialogTrigger asChild>
-          <Button variant="destructive" className="rounded-full p-[10px]">
-            <Plus />
+          <Button variant={"outline"} className="rounded-full px-3 py-5">
+            <Pencil color={"red"} />
           </Button>
         </DialogTrigger>
-        <div className="text-center text-sm font-medium mt-6 ">
-          <h4>Add new Dish to </h4>
-          <h4>{categoryName}</h4>
-        </div>
       </DialogTitle>
       <DialogContent className="flex flex-col gap-6 p-6">
         <DialogHeader className="pb-4 grid gap-4">
-          <DialogTitle>Add new dish to {categoryName}</DialogTitle>
+          <DialogTitle>Dishes info</DialogTitle>
         </DialogHeader>
-        <div className="flex gap-6">
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="foodName">Food name</Label>
-            <Input
-              value={food.name}
-              id="foodName"
-              name="name"
-              type="text"
-              placeholder="Type food name..."
-              onChange={onChange}
-            />
-          </div>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="foodPrice">Food price</Label>
-            <Input
-              id="foodPrice"
-              name="price"
-              type="number"
-              placeholder="Enter price..."
-              onChange={onChange}
-            />
-          </div>
+        <div className="flex">
+          <Label htmlFor="foodName">Food name11</Label>
+          <Input
+            value={editFood?.name}
+            id="foodName"
+            name="name"
+            type="text"
+            placeholder="Type food name..."
+            onChange={onChange}
+          />
+        </div>
+        <div className="grid w-full items-center gap-1.5">
+          <Label htmlFor="foodPrice">Food price</Label>
+          <Input
+            id="foodPrice"
+            name="price"
+            value={editFood?.price}
+            type="number"
+            placeholder="Enter price..."
+            onChange={onChange}
+          />
         </div>
         <div className="flex flex-col w-full  gap-1.5">
           <label htmlFor="ingredients">Ingredients</label>
           <textarea
             id="ingredients"
             name="ingredients"
+            value={editFood?.ingredients}
             rows={4}
             cols={50}
             className="border rounded-md py-2 px-4  text-sm font-normal "
@@ -122,19 +108,25 @@ export const AddDish = ({ categoryName,_id }: AddDishProps) => {
         </div>
         <div className="grid w-full items-center gap-1.5">
           <h1 className="text-sm">Food image</h1>
-          {food.image !== "" ? (
+          {editFood?.image !== "" ? (
             <div
-              className={`bg-cover bg-center rounded-md h-[138px] `}
+              className={`bg-cover bg-center rounded-md h-[138px] flex justify-end p-4 `}
               style={{ backgroundImage: `url(${food.image})` }}
-            ></div>
+            >
+              <Button
+                variant="outline"
+                className="rounded-full px-3 py-5"
+                onClick={() => {}}
+              >
+                <X />
+              </Button>
+            </div>
           ) : (
             <Label
               htmlFor="image"
               className={`h-[138px] border border-dashed rounded-md bg-blue-50 flex flex-col items-center justify-center p-4 gap-2`}
             >
-              <div className="rounded-full p-2 bg-background ">
-                <Image />
-              </div>
+              <div className="rounded-full p-2 bg-background "></div>
               <h3 className="text-sm">Choose a file or drag & drop it here</h3>
             </Label>
           )}
@@ -150,13 +142,7 @@ export const AddDish = ({ categoryName,_id }: AddDishProps) => {
         </div>
         <DialogFooter className="pt-6">
           <DialogClose asChild>
-            <Button
-              onClick={() => {
-                addDish();
-              }}
-            >
-              Add dish
-            </Button>
+            <Button onClick={editDish}>Edit dish</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
