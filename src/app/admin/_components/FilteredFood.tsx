@@ -26,7 +26,7 @@ export const FilteredFood = ({ _id, categoryName }: CategoryType) => {
     };
 
     fetchFood();
-  }, [foods]);
+  }, [_id,categoryName]);
 
   return (
     <div className="w-full p-5 flex flex-col gap-5 rounded-xl bg-background">
