@@ -19,10 +19,8 @@ import Link from "next/link";
 import { useAuthFetch } from "@/app/(Hooks)/FetchData";
 
 export const Category = () => {
-  const foodCategory = useAuthFetch("food-category")
+  const foodCategory = useAuthFetch("food-category");
   const [newCategory, setNewCategory] = useState<string>();
-
-  
 
   const addCategory = () => {
     fetch("http://localhost:8000/food-category/", {

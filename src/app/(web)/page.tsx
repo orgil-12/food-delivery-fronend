@@ -12,7 +12,7 @@ export default function Home() {
         style={{ backgroundImage: `url(/BG.png)` }}
       ></div>
       <div className="px-[240px]">
-        <Categories/>
+        <Categories />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ export type CategoryType = {
 
 export const Dishes = () => {
   const params = useParams();
-  const foodCategory = useAuthFetch("food-category")
+  const foodCategory = useAuthFetch("food-category");
 
   //   const grouped = Object.groupBy(food, ({ category }) => category);
 
