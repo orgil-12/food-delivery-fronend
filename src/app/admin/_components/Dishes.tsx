@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { FilteredFood } from "./FilteredFood";
 import { useParams } from "next/navigation";
+import { useAuthFetch } from "@/app/(Hooks)/FetchData";
 
 export type CategoryType = {
   categoryName: string;
@@ -9,17 +10,8 @@ export type CategoryType = {
 };
 
 export const Dishes = () => {
-  const [foodCategory, setFoodCategory] = useState<CategoryType[]>();
   const params = useParams();
-  useEffect(() => {
-    const fetchCategory = async () => {
-      const response = await fetch("http://localhost:8000/food-category");
-      const data = await response.json();
-      setFoodCategory(data);
-    };
-
-    fetchCategory();
-  }, []);
+  const foodCategory = useAuthFetch("food-category")
 
   //   const grouped = Object.groupBy(food, ({ category }) => category);
 

@@ -16,25 +16,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-
-type CategoryType = {
-  categoryName: string;
-  _id: string;
-};
+import { useAuthFetch } from "@/app/(Hooks)/FetchData";
 
 export const Category = () => {
-  const [foodCategory, setFoodCategory] = useState<CategoryType[]>();
+  const foodCategory = useAuthFetch("food-category")
   const [newCategory, setNewCategory] = useState<string>();
 
-  useEffect(() => {
-    const fetchCategory = async () => {
-      const response = await fetch("http://localhost:8000/food-category");
-      const data = await response.json();
-      setFoodCategory(data);
-    };
-
-    fetchCategory();
-  }, []);
+  
 
   const addCategory = () => {
     fetch("http://localhost:8000/food-category/", {
