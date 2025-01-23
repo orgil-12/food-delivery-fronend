@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { CategoryType } from "../admin/_components/Dishes";
 
 export function useAuthFetch(path:any){
-    const [data , setData] = useState<CategoryType[]>()
+    const [data , setData] = useState()
     useEffect(() => {
         const fetchData = async () => {
           const response = await fetch(`http://localhost:8000/${path}`);

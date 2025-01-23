@@ -21,7 +21,7 @@ export const Categories = () => {
         
         {categories?.map((category) => {
           return (
-            <Link href={"#"} key={category._id}>
+            <Link href={`${category._id}`} key={category._id}>
               <Badge
                 variant={"outline"}
                 className="bg-background text-primary rounded-full text-lg font-normal px-5 py-1"
