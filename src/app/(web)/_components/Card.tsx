@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import React, { use, useEffect, useState } from "react";
+import { AddOrder } from "./AddOrder";
 
 export const CardComp = ({ food, id }: any) => {
   return (
@@ -8,8 +9,9 @@ export const CardComp = ({ food, id }: any) => {
         className={`w-[365.33px] h-[210px]  bg-cover bg-center rounded-xl flex justify-end items-end p-5`}
         style={{ backgroundImage: `url(${food.image})` }}
       >
+        <AddOrder food={food} id={id}/>
       </div>
-      <div className="grid gap-2">
+      <div className="grid ">
         <div className="flex justify-between items-center">
           <span className="text-red-500 text-2xl font-semibold ">{food.name}</span>
           <span className="text-lg font-semibold ">${food.price}</span>
