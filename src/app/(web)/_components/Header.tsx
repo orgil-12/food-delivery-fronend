@@ -9,8 +9,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 
 export const Header = () => {
+  const { isSignedIn, user, isLoaded } = useUser();
+
+  if (!isLoaded) {
+    return null;
+  }
+
   return (
     <div className="py-3 px-[88px] flex bg-primary text-primary-foreground justify-between">
       <Link href={`/`}>
@@ -42,12 +49,17 @@ export const Header = () => {
         <button className="bg-secondary text-secondary-foreground rounded-full p-3">
           <ShoppingCart size={15} />{" "}
         </button>
-        <Popover>
-          <PopoverTrigger className="bg-red-500 text-primary-foreground rounded-full px-3 py-[11px] flex items-center">
-            <User size={18} strokeWidth={1.5} />
-          </PopoverTrigger>
-          <PopoverContent>Place content for the popover here.</PopoverContent>
-        </Popover>
+        {!isSignedIn && (
+          <Popover>
+            <PopoverTrigger className="bg-red-500 text-primary-foreground rounded-full px-3 py-[11px] flex items-center">
+              <User size={18} strokeWidth={1.5} />
+            </PopoverTrigger>
+            <PopoverContent>
+              <SignInButton />
+            </PopoverContent>
+          </Popover>
+        )}
+        <UserButton />
       </div>
     </div>
   );

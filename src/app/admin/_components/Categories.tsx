@@ -17,9 +17,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useAuthFetch } from "@/app/(Hooks)/FetchData";
+import { CategoryType } from "./Dishes";
 
 export const Category = () => {
-  const foodCategory = useAuthFetch("food-category");
+  const foodCategory: CategoryType[] = useAuthFetch("food-category") || [];
   const [newCategory, setNewCategory] = useState<string>();
 
   const addCategory = () => {

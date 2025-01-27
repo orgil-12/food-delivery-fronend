@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -11,7 +18,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
 
 const inter = Inter({
   variable: "--font-inter",
@@ -33,7 +39,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${inter.className} antialiased bg-neutral-700`}
       >
-        {children}
+        <ClerkProvider>
+          <SignedOut>
+            {children}
+          </SignedOut>
+          <SignedIn>{children}</SignedIn>
+        </ClerkProvider>
       </body>
     </html>
   );
