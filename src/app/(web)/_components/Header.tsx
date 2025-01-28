@@ -10,6 +10,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export const Header = () => {
   const { isSignedIn, user, isLoaded } = useUser();
@@ -46,9 +54,23 @@ export const Header = () => {
           </Label>
           <Input id="address" type="adress" className="hidden" />
         </div>
-        <button className="bg-secondary text-secondary-foreground rounded-full p-3">
-          <ShoppingCart size={15} />{" "}
-        </button>
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <button className="bg-secondary text-secondary-foreground rounded-full p-3">
+              <ShoppingCart size={15} />{" "}
+            </button>
+          </SheetTrigger>
+          <SheetContent>
+            <SheetHeader>
+              <SheetTitle>Are you absolutely sure?</SheetTitle>
+              <SheetDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
         {!isSignedIn && (
           <Popover>
             <PopoverTrigger className="bg-red-500 text-primary-foreground rounded-full px-3 py-[11px] flex items-center">
