@@ -19,6 +19,14 @@ import { url } from "node:inspector";
 export const AddOrder = ({ food, id }: { food: FoodType; id: string }) => {
   const [order, setOrder] = useState(1);
   const isAvielable = order >= 2 ? "border-primary" : "";
+
+  const addFoodOrder = (food: FoodType) => {  
+    localStorage.setItem("orderItems", JSON.stringify([{
+      food,
+      quantity: 1  
+    }])); 
+  }
+
   return (
     <Dialog>
       <DialogTitle className=" text-center ">
@@ -74,6 +82,7 @@ export const AddOrder = ({ food, id }: { food: FoodType; id: string }) => {
             </div>
             <DialogClose asChild>
               <Button className=" rounded-full" onClick={()=> {
+                addFoodOrder(food); 
                 setOrder(1)
               }}>Add to cart</Button>
             </DialogClose>
