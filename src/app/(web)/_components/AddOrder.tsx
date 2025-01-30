@@ -15,16 +15,25 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { FoodType } from "./Dishes";
 import { url } from "node:inspector";
+import { OrderItem } from "./Header";
 
 export const AddOrder = ({ food, id }: { food: FoodType; id: string }) => {
   const [order, setOrder] = useState(1);
   const isAvielable = order >= 2 ? "border-primary" : "";
 
-  const addFoodOrder = (food: FoodType) => {  
-    localStorage.setItem("orderItems", JSON.stringify([{
-      food,
-      quantity: 1  
-    }])); 
+  const addFoodToOrder = (food: FoodType) => {  
+    const oldValues = localStorage.getItem("orderItems"); 
+    const oldValuesItems = JSON.parse(oldValues || "[]"); 
+
+    const oldFood = oldValuesItems.find((item: OrderItem) => item.food._id === food?._id); 
+    console.log(oldFood); 
+
+    if (oldFood) {
+      oldFood.quantity += order; 
+    }else {  
+      oldValuesItems.push({ food, quantity: order });  
+    }
+    localStorage.setItem("orderItems", JSON.stringify(oldValuesItems)); 
   }
 
   return (
@@ -82,7 +91,7 @@ export const AddOrder = ({ food, id }: { food: FoodType; id: string }) => {
             </div>
             <DialogClose asChild>
               <Button className=" rounded-full" onClick={()=> {
-                addFoodOrder(food); 
+                addFoodToOrder(food); 
                 setOrder(1)
               }}>Add to cart</Button>
             </DialogClose>

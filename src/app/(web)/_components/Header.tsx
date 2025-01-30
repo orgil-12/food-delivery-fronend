@@ -34,7 +34,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { FoodType } from "./Dishes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export type OrderItem = {
   food: FoodType,
@@ -50,9 +50,38 @@ export const Header = () => {
 
   const existingOrderString = localStorage.getItem("orderItems");
   const existingOrder = JSON.parse(existingOrderString || "[]");
-  const [foodOrderItems, setFoodOrderItems] = useState<OrderItem[]>(existingOrder);
+  const [foodOrderItems, setFoodOrderItems] = useState<OrderItem[]>(existingOrder)
 
-  console.log(existingOrder);
+  const onMinusOrderItems = (idx: number) => {  
+    if (foodOrderItems[idx].quantity > 1) {
+      foodOrderItems[idx].quantity--
+      setFoodOrderItems([...foodOrderItems])
+      localStorage.setItem("orderItems", JSON.stringify(foodOrderItems))
+    } else {
+      return foodOrderItems
+    }
+  }
+
+  const onPlusOrderItems = (idx: number) => { 
+    foodOrderItems[idx].quantity++
+    setFoodOrderItems([...foodOrderItems])
+    localStorage.setItem("orderItems", JSON.stringify(foodOrderItems))
+  }
+
+  const deleteFoodFromOrder = (food: FoodType) => { 
+    const oldValues = localStorage.getItem("orderItems"); 
+    const oldValuesItems = JSON.parse(oldValues || "[]"); 
+    const oldFood = oldValuesItems.find((item: OrderItem) => item.food._id === food?._id); 
+    if (oldFood) { 
+      oldValuesItems.splice(oldValuesItems.indexOf(oldFood), 1); 
+    }
+    localStorage.setItem("orderItems", JSON.stringify(oldValuesItems)); 
+  }
+
+  useEffect(() => {
+
+  }, [])
+
 
   return (
     <div className="py-3 px-[88px] flex bg-primary text-primary-foreground justify-between">
@@ -89,7 +118,7 @@ export const Header = () => {
               <ShoppingCart size={15} />{" "}
             </button>
           </SheetTrigger>
-          <SheetContent className="min-w-[535px ] bg-neutral-700 border-none flex flex-col gap-6 rounded-bl-[20px] rounded-tl-[20px] ">
+          <SheetContent className="min-w-[535px] bg-neutral-700 border-none flex flex-col gap-6 rounded-bl-[20px] rounded-tl-[20px] ">
             <SheetTitle className="flex gap-3 text-primary-foreground">
               <ShoppingCart />
               <p>Order detail</p>
@@ -101,7 +130,7 @@ export const Header = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex flex-col gap-5">
-                {foodOrderItems.map((order: any, index: any) => (
+                {foodOrderItems.map((order: any, idx: any) => (
                   <>
                   <div key={order?.food?.id} className="flex gap-[10px]">
                     <div
@@ -122,20 +151,23 @@ export const Header = () => {
                         </div>
                         <Button
                           variant={"outline"}
-                          className="border-red-500 px-3 py-5 rounded-full  "
+                          className="border-red-500 px-3 py-5 rounded-full  " 
+                          onClick={()=> {
+                            deleteFoodFromOrder(order?.food)
+                          }}
                         >
                           <X color="red" />
                         </Button>
                       </div>
                       <div className="w-full flex justify-between">
                         <div className="flex gap-3 items-center">
-                          <button className="rounded-full py-2 px-2 text-sm"  onClick={() => {order.quantity > 1 ? order.quantity-- : order.quantity}}> 
+                          <button className="rounded-full py-2 px-2 text-sm"  onClick={() => onMinusOrderItems(idx)}> 
                             <Minus size={13} />
                           </button>
                           <p className="font-semibold text-lg">
                             {order?.quantity}
                           </p>
-                          <button className="rounded-full py-2 px-2 text-sm" onClick={() => {order.quantity++}}>
+                          <button className="rounded-full py-2 px-2 text-sm" onClick={() => onPlusOrderItems(idx)}>
                             <Plus size={13} />
                           </button>
                         </div>
@@ -143,7 +175,7 @@ export const Header = () => {
                       </div>
                     </div>
                   </div>
-                  {index !== existingOrder.length - 1 && <hr className="border-[1px] border-dashed border-neutral-500"/>}
+                  {idx !== existingOrder.length - 1 && <hr className="border-[1px] border-dashed border-neutral-500"/>}
                   </>
                 ))}
               </CardContent>
