@@ -44,13 +44,11 @@ export type OrderItem = {
 export const Header = () => {
   const { isSignedIn, user, isLoaded } = useUser();
 
-  if (!isLoaded) {
-    return null;
-  }
-
   const existingOrderString = localStorage.getItem("orderItems");
   const existingOrder = JSON.parse(existingOrderString || "[]");
   const [foodOrderItems, setFoodOrderItems] = useState<OrderItem[]>(existingOrder)
+
+  
 
   const onMinusOrderItems = (idx: number) => {  
     if (foodOrderItems[idx].quantity > 1) {
@@ -82,6 +80,12 @@ export const Header = () => {
 
   }, [])
 
+  if (!isLoaded) {
+    return null;
+  }
+
+
+  console.log({foodOrderItems})
 
   return (
     <div className="py-3 px-[88px] flex bg-primary text-primary-foreground justify-between">
@@ -130,9 +134,9 @@ export const Header = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex flex-col gap-5">
-                {foodOrderItems.map((order: any, idx: any) => (
-                  <>
-                  <div key={order?.food?.id} className="flex gap-[10px]">
+                {foodOrderItems.map((order: OrderItem, idx: any) => (
+                  <div key={order?.food?._id} className="flex flex-col gap-[15px] " >
+                  <div className="flex gap-[10px]">
                     <div
                       className=" bg-center bg-no-repeat bg-cover min-w-[124px] h-[120px] rounded-xl"
                       style={{
@@ -176,7 +180,7 @@ export const Header = () => {
                     </div>
                   </div>
                   {idx !== existingOrder.length - 1 && <hr className="border-[1px] border-dashed border-neutral-500"/>}
-                  </>
+                  </div>
                 ))}
               </CardContent>
               <CardFooter>
