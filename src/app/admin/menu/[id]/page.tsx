@@ -1,6 +1,5 @@
 "use client";
 import { Category } from "../../_components/Categories";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dishes } from "../../_components/Dishes";
 import { useParams } from "next/navigation";
 import { UserButton } from "@clerk/nextjs";
