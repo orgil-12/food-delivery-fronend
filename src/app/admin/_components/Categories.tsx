@@ -24,7 +24,7 @@ export const Category = () => {
   const [newCategory, setNewCategory] = useState<string>();
 
   const addCategory = () => {
-    fetch("http://localhost:8000/food-category/", {
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/food-category/`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
