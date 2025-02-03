@@ -1,6 +1,4 @@
-import path from "path";
 import { useEffect, useState } from "react";
-import { CategoryType } from "../admin/_components/Dishes";
 
 export function useAuthFetch(path:any){
     const [data , setData] = useState()

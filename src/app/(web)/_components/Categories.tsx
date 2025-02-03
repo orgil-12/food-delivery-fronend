@@ -5,11 +5,9 @@ import { CategoryType } from "./Dishes";
 import {
   Carousel,
   CarouselContent,
-  CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
 
 export const Categories = () => {
   const categories: CategoryType[] = useAuthFetch("food-category") || [];

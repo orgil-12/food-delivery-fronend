@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useAuthFetch } from "@/app/(Hooks)/FetchData";
 import { FilteredFood } from "./FilteredFoods";

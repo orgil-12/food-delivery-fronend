@@ -1,9 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
-import { CategoryType } from "./Dishes";
-
-import { Card } from "@/components/ui/card";
-import { AddDish } from "@/app/admin/_components/AddDish";
 import { FoodType } from "@/app/admin/_components/FilteredFood";
 import { CardComp } from "./Card";
 
