@@ -1,15 +1,20 @@
 import { Card } from "@/components/ui/card";
-import React, { use, useEffect, useState } from "react";
+import React from "react";
 import { AddOrder } from "./AddOrder";
+import { FoodType } from "./Dishes";
 
-export const CardComp = ({ food, id }: any) => {
+type Props = {
+  food: FoodType;
+};
+
+export const CardComp = ({ food }:Props) => {
   return (
     <Card className="border rounded-[20px] bg-background p-4 w-[397.33px] h-[342px] flex flex-col gap-5 items-center  ">
       <div
         className={`w-[365.33px] h-[210px]  bg-cover bg-center rounded-xl flex justify-end items-end p-5`}
         style={{ backgroundImage: `url(${food.image})` }}
       >
-        <AddOrder food={food} id={id}/>
+        <AddOrder food={food}/>
       </div>
       <div className="grid ">
         <div className="flex justify-between items-center">

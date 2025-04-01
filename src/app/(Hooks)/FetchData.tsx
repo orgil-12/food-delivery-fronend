@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useAuthFetch(path:any){
+export function useAuthFetch(path: string) {
     const [data , setData] = useState()
     useEffect(() => {
         const fetchData = async () => {
@@ -10,7 +10,7 @@ export function useAuthFetch(path:any){
         };
     
         fetchData();
-      }, []);
+      }, [path]);
 
       return data
 }

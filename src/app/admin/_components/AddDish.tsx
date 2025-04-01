@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Plus, Image } from "lucide-react";
+import { Plus, Image as ImageIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChangeEvent, useState } from "react";
@@ -133,7 +133,7 @@ export const AddDish = ({ categoryName,_id }: AddDishProps) => {
               className={`h-[138px] border border-dashed rounded-md bg-blue-50 flex flex-col items-center justify-center p-4 gap-2`}
             >
               <div className="rounded-full p-2 bg-background ">
-                <Image />
+                <ImageIcon />
               </div>
               <h3 className="text-sm">Choose a file or drag & drop it here</h3>
             </Label>

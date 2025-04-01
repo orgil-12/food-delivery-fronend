@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import {  Image, Pencil, Trash, X } from "lucide-react";
+import {  Image as ImageIcon, Pencil, Trash, X } from "lucide-react";
 import {
   Dialog,
   DialogClose,
@@ -152,7 +152,7 @@ export const EditDish = ({ food }: { food: FoodType}) => {
                 className={`h-[138px] w-full border border-dashed rounded-md bg-blue-50 flex flex-col items-center justify-center p-4 gap-2`}
               >
                 <div className="rounded-full p-2 bg-background ">
-                  <Image />
+                  <ImageIcon />
                 </div>
 
                 <h3 className="text-sm">
