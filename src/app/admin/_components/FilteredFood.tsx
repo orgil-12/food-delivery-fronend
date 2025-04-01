@@ -39,7 +39,7 @@ export const FilteredFood = ({ _id, categoryName }: CategoryType) => {
           (food) =>
             food.category === _id && (
               <div key={food._id}>
-                <CardComp food={food} _id={_id} />
+                <CardComp food={food} />
               </div>
             )
         )}

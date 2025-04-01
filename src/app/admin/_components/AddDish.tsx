@@ -11,7 +11,8 @@ import { Button } from "@/components/ui/button";
 import { Plus, Image } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+import { FoodType } from "./FilteredFood";
 
 interface AddDishProps {
   categoryName: string,
@@ -19,7 +20,7 @@ interface AddDishProps {
 }
 
 export const AddDish = ({ categoryName,_id }: AddDishProps) => {
-  const [food, setFood] = useState({
+  const [food, setFood] = useState<Partial<FoodType>>({
     name: "",
     price: 0,
     ingredients: "",
@@ -38,7 +39,7 @@ export const AddDish = ({ categoryName,_id }: AddDishProps) => {
     });
   };
 
-  const onChange = (e: any) => {
+  const onChange = (e:  ChangeEvent<HTMLInputElement| HTMLTextAreaElement>) => {
     console.log("--", e.target.name, e.target.value);
     setFood({
       ...food,
@@ -63,7 +64,7 @@ export const AddDish = ({ categoryName,_id }: AddDishProps) => {
       );
 
       const dataJson = await response.json();
-      setFood((prev: any) => ({ ...prev, image: dataJson.secure_url }));
+      setFood((prev) => ({ ...prev, image: dataJson.secure_url }));
     }
   };
 

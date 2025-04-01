@@ -1,28 +1,23 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Image, Minus, Pencil, Plus, PlusIcon, Trash, X } from "lucide-react";
+import { Minus, Plus, PlusIcon } from "lucide-react";
 import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogFooter,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Label } from "@radix-ui/react-label";
-import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { FoodType } from "./Dishes";
-import { url } from "node:inspector";
 import { OrderItem } from "./Header";
 
-export const AddOrder = ({ food, id }: { food: FoodType; id: string }) => {
+export const AddOrder = ({ food }: { food: FoodType}) => {
   const [order, setOrder] = useState(1);
   const isAvielable = order >= 2 ? "border-primary" : "";
 
   const addFoodToOrder = (food: FoodType) => {  
-    const oldValues = localStorage.getItem("orderItems"); 
+    const oldValues = localStorage?.getItem("orderItems"); 
     const oldValuesItems = JSON.parse(oldValues || "[]"); 
 
     const oldFood = oldValuesItems.find((item: OrderItem) => item.food._id === food?._id); 

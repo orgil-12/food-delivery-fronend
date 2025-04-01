@@ -5,7 +5,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -13,9 +12,9 @@ import {
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { FoodType } from "./FilteredFood";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
-export const EditDish = ({ food, id }: { food: FoodType; id: string }) => {
+export const EditDish = ({ food }: { food: FoodType}) => {
   const [editFood, setEditFood] = useState<FoodType>(food);
 
   const editDish = async () => {
@@ -29,7 +28,7 @@ export const EditDish = ({ food, id }: { food: FoodType; id: string }) => {
     });
   };
 
-  const onChange = (e: any) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     console.log("--", e.target.name, e.target.value);
     setEditFood({
       ...editFood,
@@ -54,7 +53,7 @@ export const EditDish = ({ food, id }: { food: FoodType; id: string }) => {
       );
 
       const dataJson = await response.json();
-      setEditFood((prev: any) => ({ ...prev, image: dataJson.secure_url }));
+      setEditFood((prev) => ({ ...prev, image: dataJson.secure_url }));
     }
   };
 

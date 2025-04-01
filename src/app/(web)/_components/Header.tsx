@@ -22,7 +22,6 @@ import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
@@ -42,7 +41,7 @@ export type OrderItem = {
 }
 
 export const Header = () => {
-  const { isSignedIn, user, isLoaded } = useUser();
+  const { isSignedIn, isLoaded } = useUser();
 
   const existingOrderString = localStorage.getItem("orderItems");
   const existingOrder = JSON.parse(existingOrderString || "[]");
@@ -134,7 +133,7 @@ export const Header = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex flex-col gap-5">
-                {foodOrderItems.map((order: OrderItem, idx: any) => (
+                {foodOrderItems.map((order: OrderItem, idx: number) => (
                   <div key={order?.food?._id} className="flex flex-col gap-[15px] " >
                   <div className="flex gap-[10px]">
                     <div

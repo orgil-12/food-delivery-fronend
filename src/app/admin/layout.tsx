@@ -8,7 +8,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const {isSignedIn, user, isLoaded } = useUser();
+  const {user} = useUser();
 
   const isAdmin = user?.publicMetadata.role === "admin";
   if (isAdmin){
